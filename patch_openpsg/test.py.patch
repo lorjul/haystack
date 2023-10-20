@@ -1,0 +1,42 @@
+diff --git a/tools/test.py b/tools/test.py
+index e51a884..6ecd2a9 100644
+--- a/tools/test.py
++++ b/tools/test.py
+@@ -19,6 +19,7 @@ from mmdet.models import build_detector
+ 
+ from openpsg.datasets import build_dataset
+ from grade import save_results
++from haystack_output import dump_haystack_output
+ 
+ 
+ def parse_args():
+@@ -30,6 +31,7 @@ def parse_args():
+         '--work-dir',
+         help='the directory to save the file containing evaluation metrics')
+     parser.add_argument('--out', help='output result file in pickle format')
++    parser.add_argument('--haystack')
+     parser.add_argument(
+         '--fuse-conv-bn',
+         action='store_true',
+@@ -114,9 +116,9 @@ def main():
+     args = parse_args()
+ 
+     assert args.out or args.eval or args.format_only or args.show \
+-        or args.show_dir or args.submit, \
++        or args.show_dir or args.submit or args.haystack, \
+         ('Please specify at least one operation (save/eval/format/show the '
+-         'results / save the results) with the argument "--out", "--eval"'
++         'results / save the results) with the argument "--haystack", "--out", "--eval"'
+          ', "--format-only", "--show" or "--show-dir"')
+ 
+     if args.eval and args.format_only:
+@@ -221,6 +223,9 @@ def main():
+         if args.out:
+             print(f'\nwriting results to {args.out}')
+             mmcv.dump(outputs, args.out)
++        if args.haystack:
++            print(f'\nwriting haystack results to {args.haystack}')
++            dump_haystack_output(outputs, data_loader.dataset, args.haystack)
+         kwargs = {} if args.eval_options is None else args.eval_options
+         if args.format_only:
+             dataset.format_results(outputs, **kwargs)
