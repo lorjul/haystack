@@ -1,5 +1,7 @@
 # Haystack: A Panoptic Scene Graph Dataset to Evaluate Rare Predicate Classes
 
+Published at the [Scene Graphs and Graph Representation Learning Workshop @ ICCV 2023](https://sg2rl.github.io/).
+
 Haystack is a panoptic scene graph dataset that in contrast to existing scene graph datasets, includes explicit negative relation annotations. Negative relation annotations are important during evaluation, because they can drastically reduce label noise that occurs when relations are missed by annotators. During sampling, prior scene graph datasets will introduce some false negative labels, wheras Haystack guarantees that all negative relations are correct (assuming a perfect annotator).
 
 Using Haystack, we are able to design three new metrics that give much more fine-grained insights than Recall@k metrics can give.
